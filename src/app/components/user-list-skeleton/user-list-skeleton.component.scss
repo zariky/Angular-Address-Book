@@ -1,0 +1,13 @@
+:host ::ng-deep {
+  .p-datatable-tbody tr td {
+    justify-content: center !important;
+
+    & > * {
+      width: 100%;
+    }
+
+    & .avatar {
+      margin: 0 auto;
+    }
+  }
+}

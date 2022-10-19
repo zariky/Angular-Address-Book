@@ -1,0 +1,12 @@
+@import './_variables.scss';
+
+@mixin breakpoint($name) {
+  @if map-has-key($breakpoints, $name) {
+    @media #{inspect(map-get($breakpoints, $name))} {
+      @content;
+    }
+  } @else {
+    @error '@mixin breakpoint: `#{$name}` is invalid key in breakpoints.' +
+    'Please use any valid breakpoint from this list: `#{$breakpoints}`';
+  }
+}

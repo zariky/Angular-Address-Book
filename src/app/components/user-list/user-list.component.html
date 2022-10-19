@@ -1,0 +1,94 @@
+<app-user-list-skeleton *ngIf="isLoading; else userList"></app-user-list-skeleton>
+
+<ng-template #userList>
+  <p-card styleClass="my-5">
+    <p-table
+      #ct
+      [value]="users || []"
+      [rows]="5"
+      [paginator]="true"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[5, 10, 25]"
+      [rowHover]="true"
+      [filterDelay]="0"
+      [globalFilterFields]="['fullName', 'phone', 'cell']"
+      breakpoint="992px"
+      currentPageReportTemplate="{first} to {last} of {totalRecords}"
+      dataKey="user.login.uuid"
+      styleClass="p-datatable-striped"
+    >
+      <ng-template pTemplate="caption">
+        <div class="table-header flex align-items-center">
+          <h2>Contacts</h2>
+          <span class="flex-1"></span>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input class="w-full" pInputText type="text" placeholder="Search" (input)="filter($event)" />
+          </span>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3rem"></th>
+          <th pSortableColumn="fullName">
+            Name
+            <p-sortIcon field="fullName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="phone">
+            Phone
+            <p-sortIcon field="phone"></p-sortIcon>
+          </th>
+          <th pSortableColumn="cell">
+            Cell
+            <p-sortIcon field="cell"></p-sortIcon>
+          </th>
+          <th style="width: 5rem"></th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>
+            <p-avatar [image]="user.picture.medium" shape="circle" size="large"></p-avatar>
+          </td>
+          <td>
+            <span class="font-bold">{{ user.fullName }}</span>
+          </td>
+          <td>
+            <span class="p-column-title"
+              ><i class="pi pi-phone mr-2" style="font-size: 1rem" pTooltip="Phone"></i
+            ></span>
+
+            <span>{{ user.phone }}</span>
+          </td>
+          <td>
+            <span class="p-column-title"
+              ><i class="pi pi-mobile mr-2" style="font-size: 1rem" pTooltip="Cell"></i
+            ></span>
+
+            <span>{{ user.cell }}</span>
+          </td>
+          <td>
+            <button
+              class="contact-details-btn"
+              type="button"
+              pButton
+              pRipple
+              icon="pi pi-eye"
+              pTooltip="View details"
+              tooltipPosition="bottom"
+              (click)="navigateToDetails(user.login.uuid)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td class="text-center" [attr.colspan]="5">No records found</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</ng-template>

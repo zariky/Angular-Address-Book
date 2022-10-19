@@ -1,0 +1,23 @@
+@import '../../../mixins.scss';
+
+:host ::ng-deep {
+  .p-datatable-tbody tr td {
+    justify-content: center !important;
+  }
+
+  .contact-details-btn {
+    width: 100%;
+  }
+
+  .p-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  @include breakpoint(lg) {
+    .p-avatar {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}

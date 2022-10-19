@@ -1,0 +1,19 @@
+$sm: 576px !default;
+$md: 768px !default;
+$lg: 992px !default;
+$xl: 1200px !default;
+
+$breakpoints: (
+  'sm': (
+    min-width: $sm,
+  ),
+  'md': (
+    min-width: $md,
+  ),
+  'lg': (
+    min-width: $lg,
+  ),
+  'xl': (
+    min-width: $xl,
+  ),
+);

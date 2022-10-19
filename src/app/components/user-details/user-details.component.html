@@ -1,0 +1,56 @@
+<app-user-details-skeleton *ngIf="isLoading; else userDetails"></app-user-details-skeleton>
+
+<ng-template #userDetails>
+  <p-card styleClass="my-5 shadow-2">
+    <p-messages *ngIf="!user" severity="error">
+      <ng-template pTemplate>
+        <span class="custom-message">Unable to load contact details. Please go back and try again.</span>
+      </ng-template>
+    </p-messages>
+
+    <ng-template *ngIf="user" pTemplate="header">
+      <div class="grid user-info p-5 pb-0">
+        <div class="col-12 lg:col-3 avatar-wrapper">
+          <p-avatar
+            styleClass="w-9rem h-9rem border-300 border-3 shadow-2"
+            [image]="user.picture.large || ''"
+            shape="circle"
+            size="large"
+          ></p-avatar>
+        </div>
+        <div class="col-12 lg:col-9">
+          <div class="name-wrapper">
+            <div class="flex align-items-center overflow-hidden">
+              <i class="pi pi-calendar mr-2" style="font-size: 1rem" pTooltip="Date of birth"></i>
+              <span class="font-light">{{ user.dob.date | date: 'MM/dd/yyyy' }}</span>
+              <p-divider class="overflow-hidden h-1rem" layout="vertical"></p-divider>
+              <span class="font-light" pTooltip="Age">{{ user.dob.age }} y.o.</span>
+            </div>
+            <div class="name-and-email mt-3 mb-4">
+              <h1 class="m-0 font-bold">{{ user.name | name }}</h1>
+              <h4 class="m-0 font-medium">{{ user.email }}</h4>
+            </div>
+            <p-divider></p-divider>
+            <i class="pi pi-map-marker mr-2" style="font-size: 1rem" pTooltip="Address"></i>
+            <span class="address font-normal">
+              {{ user.location | address | uppercase }}
+            </span>
+            <div class="flex align-items-center h-2rem overflow-hidden">
+              <i class="pi pi-phone mr-2" style="font-size: 1rem" pTooltip="Phone"></i>
+              <span class="font-light">{{ user.phone }}</span>
+              <p-divider class="overflow-hidden h-1rem" layout="vertical"></p-divider>
+              <i class="pi pi-mobile mr-2" style="font-size: 1rem" pTooltip="Cell"></i>
+              <span class="font-light">{{ user.cell }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <app-map *ngIf="user" [coordinates]="user.location.coordinates"></app-map>
+
+    <ng-template pTemplate="footer">
+      <p-button label="Back to Contacts" icon="pi pi-arrow-left" (click)="back()"></p-button>
+    </ng-template>
+  </p-card>
+</ng-template>
